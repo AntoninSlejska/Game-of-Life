@@ -11,3 +11,19 @@ body {
 h1, p {
   color: #333;
 }
+
+.left_col {
+  display: inline-block;
+  width: 100px;
+}
+
+.info {
+  display: inline-block;
+  width: 85px;
+}
+
+.value {
+  display: inline-block;
+  width: 70px;
+  font_weight: bold;
+}

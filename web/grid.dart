@@ -8,6 +8,8 @@ class Grid {
   Map<Point, Cell> cells = new Map();
   Point lastFlip = new Point(-1, -1);
   int generation = 0, numLiveCells = 0;
+  DateTime lastTime, newTime;
+  double durationTotal = 0.0;
   
   Grid(this.lifeCanvas) {
     for (int x = 0; x < NUM_CELLS_WIDE; x++) {
@@ -118,8 +120,13 @@ class Grid {
     }
     generation = 0;
     numLiveCells = 0;
+    lastTime = null;
+    durationTotal = 0.0;
     querySelector("#generation").text = generation.toString();
     querySelector("#liveCells").text = numLiveCells.toString();
+    querySelector("#durationTotal").text = "0 ms";
+    querySelector("#durationLastStep").text = "0 ms";
+    querySelector("#durationAverage").text = "0 s";
   }
   
   /// Draw the selected pattern
@@ -135,6 +142,11 @@ class Grid {
   /// Figure out what the next generation should look like, then flip everyone over into the next generation and redraw.
   void update(Timer t) {
     numLiveCells = 0;
+    if (lastTime == null) {
+      lastTime = new DateTime.now();
+    } else {
+      lastTime = newTime;
+    }
     for (Cell cell in cells.values) {
       int livingNeighbors = aliveNeighbors(cell);
       cell.aliveNextGeneration = false;
@@ -155,6 +167,13 @@ class Grid {
       cell.draw(c2d);
     }
     generation++;
+    newTime = new DateTime.now();
+    int durationLastStep = newTime.difference(lastTime).inMilliseconds;
+    durationTotal += durationLastStep / 1000;
+    double durationAverage = durationTotal * 1000 / generation;
+    querySelector("#durationTotal").text = durationTotal.round().toString() + " s";
+    querySelector("#durationLastStep").text = durationLastStep.toString() + " ms";
+    querySelector("#durationAverage").text = durationAverage.round().toString() + " ms";
     querySelector("#generation").text = generation.toString();
     querySelector("#liveCells").text = numLiveCells.toString();
   }
