@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>The Game of Life</title>
+    
+    <script async type="application/dart" src="gameoflife.dart"></script>
+    <script async src="packages/browser/dart.js"></script>
+    
+    <link rel="stylesheet" href="gameoflife.css">
+  </head>
+  <body>
+    <h1>The Game of Life</h1>
+    
+    <canvas id="lifeCanvas" width="1000" height="600"></canvas>
+    <br>
+    <button id="startStop">Start</button>
+    <button id="clear">Clear</button>
+    <button id="export">Export</button>
+    <b>Info ::</b>
+    Generation: <span id="generation">0</span> |
+    Live Cells: <span id="liveCells">0</span>
+    <br>Patterns:
+    <button id="acorn">Acorn</button>
+    <button id="gosperGliderGun">Gosper Glider Gun</button>
+    <button id="stillLife">Still Life</button>
+    <button id="neverEndingChange">Never-ending Change</button>
+    <button id="line">Line</button>
+    <button id="random">Random</button>
+  </body>
+</html>
