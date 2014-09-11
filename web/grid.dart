@@ -10,6 +10,7 @@ class Grid {
   int generation = 0, numLiveCells = 0;
   DateTime lastTime, newTime;
   double durationTotal = 0.0;
+  bool timeStopped = false;
   
   Grid(this.lifeCanvas) {
     for (int x = 0; x < NUM_CELLS_WIDE; x++) {
@@ -142,8 +143,9 @@ class Grid {
   /// Figure out what the next generation should look like, then flip everyone over into the next generation and redraw.
   void update(Timer t) {
     numLiveCells = 0;
-    if (lastTime == null) {
+    if (lastTime == null || timeStopped == true) {
       lastTime = new DateTime.now();
+      timeStopped = false;
     } else {
       lastTime = newTime;
     }

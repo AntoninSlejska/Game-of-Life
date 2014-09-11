@@ -30,6 +30,7 @@ void clickEvent(MouseEvent event) {
   switch (clickedButton.id) {
     case "startStop" :
       if (timer == null) {
+        grid.timeStopped = true;
         timer = new Timer.periodic(const Duration(milliseconds: 1), grid.update);
         querySelector("#startStop").text = "Stop";
       } else {
@@ -37,6 +38,11 @@ void clickEvent(MouseEvent event) {
         timer = null;
         querySelector("#startStop").text = "Start";
       }
+      break;
+    case "step" :
+      grid.timeStopped = true;
+      Timer t;
+      grid.update(t);
       break;
     case "clear" :
       grid.clear();
@@ -90,6 +96,7 @@ void main() {
   lifeCanvas.onMouseUp.listen(cancel);
   
   querySelector("#startStop").onClick.listen(clickEvent);
+  querySelector("#step").onClick.listen(clickEvent);
   querySelector("#clear").onClick.listen(clickEvent);
   querySelector("#export").onClick.listen(clickEvent);
   querySelector("#acorn").onClick.listen(clickEvent);
